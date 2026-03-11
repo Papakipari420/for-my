@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>365 Days With You ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #2c0303, #6b0f1a, #b91372);
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        /* --- Opening Screen (Clean) --- */
+        #opening {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header-title {
+            font-size: 2.2em;
+            font-style: italic;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 15px rgba(255, 192, 203, 0.5);
+        }
+
+        /* Elegant Envelope Design */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            width: 400px; 
+            height: 250px; 
+            background: #a30000;
+            position: relative;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            transition: transform 0.4s ease;
+            z-index: 1;
+        }
+
+        .envelope:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 200px solid transparent; 
+            border-right: 200px solid transparent; 
+            border-top: 140px solid #800000;
+            transform-origin: top;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 5;
+        }
+
+        .envelope.open:before {
+            transform: rotateX(180deg);
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 125px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            z-index: 10;
+            transition: 0.5s;
+        }
+
+        .envelope.open .heart-seal {
+            opacity: 0;
+            transform: translate(-50%, -100%) scale(0);
+        }
+
+        /* --- SITE CONTENT --- */
+        #site {
+            display: none;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        #home {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 40px;
+            border-radius: 30px;
+            color: #333;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: slideUp 1.2s ease;
+        }
+
+        .mainPhoto {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 25px;
+            border: 5px solid white;
+        }
+
+        .loveBtn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #ff0844, #ffb199);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 8, 68, 0.3);
+            transition: 0.3s;
+        }
+
+        .loveBtn:hover { transform: scale(1.05); }
+
+        .page {
+            display: none;
+            padding: 40px;
+            border-radius: 30px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.96);
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        .story {
+            font-size: 18px;
+            line-height: 1.8;
+            font-style: italic;
+            text-align: center; /* Centered for the main intro */
+        }
+
+        .story-long {
+            text-align: justify; /* Justified for the detailed pages */
+        }
+
+        .heart-particle {
+            position: fixed;
+            bottom: -50px;
+            font-size: 24px;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: floatUp 7s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 500px) {
+            .envelope { width: 300px; height: 190px; }
+            .envelope:before { border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 100px solid #800000; }
+            .heart-seal { top: 95px; }
+            #home { padding: 25px; }
+            .story { font-size: 16px; }
+        }
+    </style>
+
+    <script>
+        function openLetter() {
+            var audio = document.getElementById("loveSong");
+            if(audio) audio.play().catch(e => console.log("Audio blocked"));
+
+            const envelope = document.querySelector(".envelope");
+            envelope.classList.add("open");
+            
+            setTimeout(function () {
+                document.getElementById("opening").style.transition = "1.5s";
+                document.getElementById("opening").style.opacity = "0";
+                setTimeout(() => {
+                    document.getElementById("opening").style.display = "none";
+                    document.getElementById("site").style.display = "block";
+                }, 1000);
+            }, 1800);
+        }
+
+        function openPage(id) {
+            document.querySelectorAll('.page, #home').forEach(div => div.style.display = 'none');
+            document.getElementById(id).style.display = "block";
+            window.scrollTo(0, 0);
+        }
+
+        function home() {
+            document.querySelectorAll('.page').forEach(div => div.style.display = 'none');
+            document.getElementById("home").style.display = "block";
+        }
+
+        setInterval(function () {
+            let heart = document.createElement("div");
+            heart.className = "heart-particle";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove() }, 7000);
+        }, 450);
+    </script>
+</head>
+
+<body>
+
+    <audio id="loveSong" loop>
+        <source src="Perfect x  Lover - (OyeEditorrAnna Mashup).mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="opening">
+        <div class="header-title">💌 A Message for Rai</div>
+        
+        <div class="envelope-wrapper" onclick="openLetter()">
+            <div class="envelope"></div>
+            <div class="heart-seal">❤️</div>
+        </div>
+        <p style="margin-top:30px; font-style: italic; opacity: 0.7;">Tap the heart to open</p>
+    </div>
+
+    <div id="site">
+        <div id="home">
+            <img src="opening.jpeg" class="mainPhoto">
+            <h2 style="color:#ff2e63; font-size: 26px;">Happy 1 Year Anniversary ❤️</h2>
+            
+            <p class="story">
+                365 days ago, I never imagined that one small moment would change my entire life.<br><br>
+                From random conversations, late night calls, stupid fights, food dates, college bunking, and walking together during Pujo — every memory with you slowly became the best part of my life.<br><br>
+                Thank you for being with me. I love you, Rai ❤️
+            </p>
+
+            <div style="margin-top: 30px;">
+                <button class="loveBtn" onclick="openPage('p1')">Our Beginning</button>
+                <button class="loveBtn" onclick="openPage('p2')">Our Journey</button>
+                <button class="loveBtn" onclick="openPage('p3')">Always Us</button>
+            </div>
+        </div>
+
+        <div id="p1" class="page">
+            <h2 style="color:#ff2e63">Where Everything Started</h2>
+            <p class="story story-long">
+                College er sei prothom din auto te pashe boshe bujhini je ei meyeta amar sathe sudhu college e na puro life katate jacche bujhini seidin je life pore amar erom hoye jabe college e konodin desperate hoye dhukini je girlfriend banabo. <br><br>
+                Oi je ekta kotha ache na 'unexpected ones are the best' seta toke dekhei bishassh kkora suru korechilam, sei sc r wait sei sc te discussion and all sob kichui unplanned chilo and oguloi best chilo. Never knew erom hye jabe. <br><br>
+                Aj 365 days hoye gelo and guess what we made it but this is one of many 365's. I hope next sob kota 365 tor sathe hok baki God's plan. <b>I LOVE YOU RAI</b>
+            </p>
+            <button class="loveBtn" onclick="home()">Back</button>
+        </div>
+
+        <div id="p2" class="page">
+            <h2 style="color:#ff2e63">Our Beautiful Chaos</h2>
+            <p class="story story-long">
+                Story surur dike onek prem thake onek onek onek sob kichute extra thake but amader khetre moja moja ar moja i chilo. 24 hrs call every day breaking every limit living the best life but prothom prothom ektu shy chilam hut hat hath dhorte lojja petam ektu private e beshi prefer kortam but idk ashte ashte sob thik holo.<br><br>
+                Tui amar dressing sense thik koriye dili and the thing is ami abar bachar karon pelam i mean a reason to live ashte ashte sob jinish e tor sathe moja korte suru korlam addiction barlo college diye random bunk and all different jaygaye jawa onek onek food dates baje time e mondire and the main thing is dujoner baje time e jotoi jhamela hok na keno pashe thaka ta dujonei chilam amra and thank you priyan.<br><br>
+                Pujo te eksathe hath dhore chola theke dujoner hath dhore kada obdi amra sob kichui eksathe korechi and thank you sathe thakar jonnno. Coming to the birthday hoyto amar thank you enough hobena and i am genuinely happy.
+            </p>
+            <button class="loveBtn" onclick="home()">Back</button>
+        </div>
+
+        <div id="p3" class="page">
+            <h2 style="color:#ff2e63">More Than Just 365</h2>
+            <p class="story story-long">
+                Etotai likhte perechi somoy hathe chilona but tor bapare likhte boshle hoyto khata sesh hoye jabe lekha baki theke jabe janina kikore ei egoistic anish er sathe theke geli janina kikore amar giveup mentality ta change kore hold korte sikhiye dili maybe wait kora ta worth chilo and i am happy ami desperate chilam na jegulo unexpected hoy setai best and onek jhamela hoiche amader maybe nongra jhamela jegulo breakup obdi jaaye segulo o hoiche but at the end sobai sob kichu bhule ghore phireche.<br><br>
+                Haters onek ache but trust me priyan ora amader ki chire nebe nojor koto ar lagabe seshe ki parlo 365 toh hoye gelo maybe etao kom kaorn ami future dekhi tor sathe and yes once again thank you for everything ami achi sob somoy jokhn toke sobai bhul bujhe dur kore debe ami achi sob somoy help korar jonno tui toh amar nijer tai bolte hobena ar beshi but yes <b>I LOVE YOU.</b><br><br>
+                Janina future e ki hobe i dont know anything about that karon this generation is so fucked but jeta amra korte parbo is <b>JOTODIN ACHI TOTODIN FATIYE MOJA KORBO AR BHALOBHASHBO DUJON DUJONKE</b>
+            </p>
+            <button class="loveBtn" onclick="home()">Back</button>
+        </div>
+    </div>
+</body>
+</html>
